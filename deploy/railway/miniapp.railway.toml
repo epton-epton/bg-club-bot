@@ -1,0 +1,7 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = ["miniapp/**"]
+
+[deploy]
+restartPolicyType = "ON_FAILURE"

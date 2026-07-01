@@ -1,0 +1,8 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = ["bot/**", "shared/**", "scripts/**", "requirements.txt", "Dockerfile"]
+
+[deploy]
+startCommand = "python -m bgclub_bot.main"
+restartPolicyType = "ON_FAILURE"

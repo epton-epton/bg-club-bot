@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 480" role="img" aria-label="">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#1a2550"/>
+      <stop offset="55%" stop-color="#24143f"/>
+      <stop offset="100%" stop-color="#0f1635"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="30%" cy="20%" r="60%">
+      <stop offset="0%" stop-color="#3de8ff" stop-opacity="0.35"/>
+      <stop offset="100%" stop-color="#3de8ff" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="480" fill="url(#bg)"/>
+  <rect width="800" height="480" fill="url(#glow)"/>
+  <g fill="#ff4fd8" opacity="0.18">
+    <circle cx="120" cy="90" r="42"/>
+    <circle cx="700" cy="360" r="56"/>
+    <rect x="620" y="70" width="72" height="72" rx="14" transform="rotate(18 656 106)"/>
+  </g>
+  <g fill="#3de8ff" opacity="0.22">
+    <rect x="80" y="300" width="88" height="88" rx="18" transform="rotate(-12 124 344)"/>
+    <circle cx="540" cy="120" r="34"/>
+    <circle cx="360" cy="380" r="48"/>
+  </g>
+  <g fill="#eef2ff" opacity="0.12">
+    <circle cx="200" cy="180" r="6"/>
+    <circle cx="240" cy="220" r="6"/>
+    <circle cx="280" cy="180" r="6"/>
+    <circle cx="320" cy="220" r="6"/>
+    <circle cx="360" cy="180" r="6"/>
+    <circle cx="400" cy="220" r="6"/>
+  </g>
+</svg>

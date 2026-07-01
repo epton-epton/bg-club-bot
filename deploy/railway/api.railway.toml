@@ -1,0 +1,10 @@
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+watchPatterns = ["api/**", "shared/**", "alembic/**", "scripts/**", "requirements.txt", "Dockerfile"]
+
+[deploy]
+startCommand = "sh scripts/start_api_prod.sh"
+healthcheckPath = "/api/v1/health"
+healthcheckTimeout = 300
+restartPolicyType = "ON_FAILURE"

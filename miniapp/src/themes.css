@@ -1,0 +1,64 @@
+:root,
+[data-theme="synthwave"] {
+  --brand-bg: #0a1028;
+  --brand-bg-gradient: linear-gradient(165deg, #0f1635 0%, #0a1028 45%, #1a0f2e 100%);
+  --brand-surface: #141d3a;
+  --brand-cyan: #3de8ff;
+  --brand-pink: #ff4fd8;
+  --brand-purple: #6b4cff;
+  --brand-text: #eef2ff;
+  --brand-muted: #8b9cc7;
+  --brand-border: rgba(61, 232, 255, 0.12);
+  --brand-glow-cyan: 0 0 20px rgba(61, 232, 255, 0.35);
+  --brand-glow-pink: 0 0 16px rgba(255, 79, 216, 0.3);
+  --brand-on-accent: #0a1028;
+  color-scheme: dark;
+}
+
+[data-theme="midnight"] {
+  --brand-bg: #06080f;
+  --brand-bg-gradient: linear-gradient(165deg, #0c1018 0%, #06080f 50%, #10141f 100%);
+  --brand-surface: #12161f;
+  --brand-cyan: #9eb4d8;
+  --brand-pink: #c4b5fd;
+  --brand-purple: #64748b;
+  --brand-text: #f1f5f9;
+  --brand-muted: #94a3b8;
+  --brand-border: rgba(148, 163, 184, 0.16);
+  --brand-glow-cyan: 0 0 18px rgba(158, 180, 216, 0.25);
+  --brand-glow-pink: 0 0 14px rgba(196, 181, 253, 0.2);
+  --brand-on-accent: #06080f;
+  color-scheme: dark;
+}
+
+[data-theme="aurora"] {
+  --brand-bg: #041612;
+  --brand-bg-gradient: linear-gradient(165deg, #062018 0%, #041612 45%, #0a1f2e 100%);
+  --brand-surface: #0d221c;
+  --brand-cyan: #5eead4;
+  --brand-pink: #6ee7b7;
+  --brand-purple: #34d399;
+  --brand-text: #ecfdf5;
+  --brand-muted: #86b8a8;
+  --brand-border: rgba(94, 234, 212, 0.14);
+  --brand-glow-cyan: 0 0 20px rgba(94, 234, 212, 0.3);
+  --brand-glow-pink: 0 0 16px rgba(110, 231, 183, 0.25);
+  --brand-on-accent: #041612;
+  color-scheme: dark;
+}
+
+[data-theme="daylight"] {
+  --brand-bg: #f4f6fb;
+  --brand-bg-gradient: linear-gradient(165deg, #ffffff 0%, #f1f5f9 48%, #e2e8f0 100%);
+  --brand-surface: #ffffff;
+  --brand-cyan: #0066b3;
+  --brand-pink: #c2185b;
+  --brand-purple: #5b21b6;
+  --brand-text: #0f172a;
+  --brand-muted: #475569;
+  --brand-border: rgba(15, 23, 42, 0.14);
+  --brand-glow-cyan: 0 0 0 1px rgba(0, 102, 179, 0.35);
+  --brand-glow-pink: 0 0 0 1px rgba(194, 24, 91, 0.28);
+  --brand-on-accent: #ffffff;
+  color-scheme: light;
+}
