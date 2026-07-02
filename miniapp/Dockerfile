@@ -16,6 +16,7 @@ RUN npm run build
 FROM nginx:alpine
 
 COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY proxy.conf /etc/nginx/conf.d/proxy.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 COPY --from=build /app/dist /usr/share/nginx/html
