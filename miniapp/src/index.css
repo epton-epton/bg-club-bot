@@ -895,6 +895,11 @@ button.section-header__action {
   gap: 8px;
 }
 
+.row-item__top > :first-child {
+  flex: 1;
+  min-width: 0;
+}
+
 .row-item__top strong {
   font-size: 0.98rem;
   font-weight: 600;
@@ -1075,6 +1080,11 @@ button.settings-chip.chip--cyan,
 .game-card__content h2 {
   margin: 0;
   font-size: 1rem;
+}
+
+.game-card__content .row-item__top .chip {
+  flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .game-card__meta {
