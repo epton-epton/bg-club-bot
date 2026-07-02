@@ -28,6 +28,11 @@ import type {
 
 const API_BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
 
+/** Prod: same-origin /api via nginx proxy. Dev: optional direct URL or Vite proxy. */
+function apiUrl(path: string): string {
+  return API_BASE ? `${API_BASE}${path}` : path;
+}
+
 function getAuthHeader(): string | null {
   const initData = window.Telegram?.WebApp?.initData;
   if (initData) {
@@ -59,14 +64,16 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
 
   let response: Response;
   try {
-    response = await fetch(`${API_BASE}${path}`, {
+    response = await fetch(apiUrl(path), {
       method: options.method ?? "GET",
       headers,
       body: options.body !== undefined ? JSON.stringify(options.body) : undefined,
     });
   } catch {
     throw new Error(
-      "Backend недоступен. Запустите API на http://localhost:8000 (см. README).",
+      import.meta.env.DEV
+        ? "Backend недоступен. Запустите API на http://localhost:8000 (см. README)."
+        : "Backend недоступен. Проверьте, что API запущен на Railway.",
     );
   }
   if (!response.ok) {
@@ -101,15 +108,16 @@ async function uploadFile(path: string, file: File): Promise<{ url: string }> {
 
   let response: Response;
   try {
-    // Upload через тот же origin (nginx proxy) — Telegram режет cross-origin multipart
-    response = await fetch(path, {
+    response = await fetch(apiUrl(path), {
       method: "POST",
       headers,
       body: formData,
     });
   } catch {
     throw new Error(
-      "Backend недоступен. Запустите API на http://localhost:8000 (см. README).",
+      import.meta.env.DEV
+        ? "Backend недоступен. Запустите API на http://localhost:8000 (см. README)."
+        : "Backend недоступен. Проверьте, что API запущен на Railway.",
     );
   }
 
