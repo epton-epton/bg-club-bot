@@ -7,12 +7,8 @@ RUN npm ci
 
 COPY . .
 
-# API: прямой URL (CORS). Картинки /uploads — через nginx proxy (API_UPSTREAM).
 ARG VITE_API_URL=https://bgclub-api-production.up.railway.app
 ENV VITE_API_URL=$VITE_API_URL
-
-ARG API_UPSTREAM=https://bgclub-api-production.up.railway.app
-ENV API_UPSTREAM=$API_UPSTREAM
 
 RUN npm run build
 
@@ -21,10 +17,8 @@ FROM nginx:alpine
 ARG API_UPSTREAM=https://bgclub-api-production.up.railway.app
 ENV API_UPSTREAM=$API_UPSTREAM
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
-COPY proxy.conf /etc/nginx/conf.d/proxy.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh && rm -f /etc/nginx/conf.d/default.conf
 COPY --from=build /app/dist /usr/share/nginx/html
 
 EXPOSE 80
