@@ -20,16 +20,25 @@ logger = logging.getLogger(__name__)
 
 async def setup_menu_button(bot: Bot) -> None:
     settings = get_settings()
-    if settings.miniapp_url:
-        texts = get_messages("en")
+    url = settings.miniapp_url
+    if not url:
+        await bot.set_chat_menu_button(menu_button=MenuButtonDefault())
+        return
+
+    texts = get_messages("en")
+    logger.info("Setting menu button URL: %s", url)
+    try:
         await bot.set_chat_menu_button(
             menu_button=MenuButtonWebApp(
                 text=texts["menu_button"],
-                web_app=WebAppInfo(url=settings.miniapp_url),
+                web_app=WebAppInfo(url=url),
             )
         )
-    else:
-        await bot.set_chat_menu_button(menu_button=MenuButtonDefault())
+    except Exception:
+        logger.exception(
+            "Failed to set menu button (check MINIAPP_URL is valid HTTPS): %s",
+            url,
+        )
 
 
 async def setup_bot_commands(bot: Bot) -> None:
@@ -62,7 +71,7 @@ async def main() -> None:
 
     reminder_task = asyncio.create_task(session_reminder_loop())
 
-    logger.info("Bot started")
+    logger.info("Bot started (miniapp_url=%s)", settings.miniapp_url or "(not set)")
     try:
         await dp.start_polling(bot)
     finally:
@@ -71,6 +80,7 @@ async def main() -> None:
             await reminder_task
         except asyncio.CancelledError:
             pass
+        await bot.session.close()
         await redis.aclose()
         await engine.dispose()
 
