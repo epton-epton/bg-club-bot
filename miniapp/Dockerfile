@@ -7,8 +7,8 @@ RUN npm ci
 
 COPY . .
 
-# Пустой VITE_API_URL — запросы на тот же origin (/api проксирует Caddy)
-ARG VITE_API_URL=
+# Прод: URL API (смените при другом домене Railway)
+ARG VITE_API_URL=https://bgclub-api-production.up.railway.app
 ENV VITE_API_URL=$VITE_API_URL
 
 RUN npm run build

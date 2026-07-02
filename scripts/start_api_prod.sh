@@ -2,11 +2,12 @@
 set -e
 
 if [ -z "$DATABASE_URL" ]; then
-  echo "ERROR: DATABASE_URL is empty. On Railway: copy value from Postgres -> Variables."
+  echo "ERROR: DATABASE_URL is empty."
+  echo "Env keys: $(env | cut -d= -f1 | sort | tr '\n' ' ')"
   exit 1
 fi
 if [ -z "$REDIS_URL" ]; then
-  echo "ERROR: REDIS_URL is empty. On Railway: copy value from Redis -> Variables."
+  echo "ERROR: REDIS_URL is empty."
   exit 1
 fi
 

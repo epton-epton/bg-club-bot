@@ -12,6 +12,7 @@ class Settings(BaseSettings):
         env_file=str(_ENV_FILE) if _ENV_FILE.is_file() else None,
         env_file_encoding="utf-8",
         extra="ignore",
+        populate_by_name=True,
     )
 
     telegram_bot_token: str = Field(default="", alias="TELEGRAM_BOT_TOKEN")
@@ -43,9 +44,22 @@ class Settings(BaseSettings):
             return value.replace("postgresql://", "postgresql+asyncpg://", 1)
         return value
 
+    @staticmethod
+    def _normalize_cors_origin(origin: str) -> str:
+        origin = origin.strip()
+        if "://" in origin:
+            return origin
+        if origin.startswith("localhost") or origin.startswith("127.0.0.1"):
+            return f"http://{origin}"
+        return f"https://{origin}"
+
     @property
     def cors_origin_list(self) -> list[str]:
-        return [origin.strip() for origin in self.cors_origins.split(",") if origin.strip()]
+        return [
+            self._normalize_cors_origin(origin)
+            for origin in self.cors_origins.split(",")
+            if origin.strip()
+        ]
 
     @property
     def admin_ids(self) -> set[int]:
