@@ -28,8 +28,11 @@ import type {
 
 const API_BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
 
-/** Prod: same-origin /api via nginx proxy. Dev: optional direct URL or Vite proxy. */
+/** Prod miniapp: same-origin /api via nginx. Dev: Vite proxy or VITE_API_URL. */
 function apiUrl(path: string): string {
+  if (import.meta.env.PROD) {
+    return path;
+  }
   return API_BASE ? `${API_BASE}${path}` : path;
 }
 
