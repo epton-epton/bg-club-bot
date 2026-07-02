@@ -1,7 +1,5 @@
 import type { CSSProperties } from "react";
 
-const API_BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
-
 function isApiMediaPath(url: string): boolean {
   return url.startsWith("/api/") || url.startsWith("/uploads/");
 }
@@ -27,11 +25,8 @@ export function resolveMediaUrl(url: string | null | undefined): string | null {
     return trimmed;
   }
   if (isApiMediaPath(trimmed)) {
-    // Same-origin: miniapp nginx or Vite dev proxy
-    if (!API_BASE) {
-      return trimmed;
-    }
-    return `${API_BASE}${trimmed}`;
+    // Same-origin via miniapp nginx proxy (Telegram blocks cross-origin CSS backgrounds)
+    return trimmed;
   }
   return trimmed;
 }

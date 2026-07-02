@@ -537,7 +537,9 @@ function GameCard({
             <div className="row-item__top">
               <h2>{game.title}</h2>
               {!game.is_active ? <Chip tone="pink">{t("games.inactive")}</Chip> : null}
-              {game.bgg_rank ? <Chip tone="cyan">{`🏆 #${game.bgg_rank}`}</Chip> : null}
+              {game.bgg_rank ? (
+                <Chip tone="cyan">{`🏆\u00a0#${game.bgg_rank}`}</Chip>
+              ) : null}
             </div>
             <div className="chip-row game-card__meta">
               {game.bgg_rating ? (

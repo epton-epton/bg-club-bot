@@ -7,8 +7,8 @@ RUN npm ci
 
 COPY . .
 
-# Прод: пустой VITE_API_URL — запросы на тот же origin (nginx проксирует /api и /uploads)
-ARG VITE_API_URL=
+# API: прямой URL (CORS). Картинки /uploads — через nginx proxy (API_UPSTREAM).
+ARG VITE_API_URL=https://bgclub-api-production.up.railway.app
 ENV VITE_API_URL=$VITE_API_URL
 
 ARG API_UPSTREAM=https://bgclub-api-production.up.railway.app

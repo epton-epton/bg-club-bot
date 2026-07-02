@@ -939,6 +939,8 @@ button.section-header__action {
   font-weight: 500;
   background: rgba(139, 156, 199, 0.15);
   color: var(--brand-muted);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .chip-row--settings {

@@ -23,6 +23,7 @@ location /api/ {
     proxy_set_header X-Forwarded-Proto \$scheme;
     proxy_read_timeout 60s;
     proxy_buffering on;
+    client_max_body_size 10m;
 }
 
 location /uploads/ {
@@ -31,6 +32,7 @@ location /uploads/ {
     proxy_set_header Host ${host};
     proxy_read_timeout 60s;
     proxy_buffering on;
+    client_max_body_size 10m;
 }
 EOF
   echo "nginx proxy -> ${base}"
