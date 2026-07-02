@@ -3,5 +3,8 @@ builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
 watchPatterns = ["miniapp/**"]
 
+[build.buildArgs]
+VITE_API_URL = "https://bgclub-api-production.up.railway.app"
+
 [deploy]
 restartPolicyType = "ON_FAILURE"
