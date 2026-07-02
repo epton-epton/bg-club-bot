@@ -15,8 +15,8 @@ COPY bot/ ./bot/
 COPY alembic/ ./alembic/
 COPY alembic.ini .
 COPY scripts/ ./scripts/
-RUN chmod +x scripts/start_api_prod.sh
+RUN chmod +x scripts/start_api_prod.sh scripts/start_container.sh
 
 ENV PYTHONPATH=/app/shared:/app/api:/app/bot
 
-CMD ["sh", "scripts/start_api_prod.sh"]
+CMD ["sh", "scripts/start_container.sh"]

@@ -44,6 +44,18 @@ class Settings(BaseSettings):
             return value.replace("postgresql://", "postgresql+asyncpg://", 1)
         return value
 
+    @field_validator("miniapp_url", mode="after")
+    @classmethod
+    def normalize_miniapp_url(cls, value: str) -> str:
+        value = value.strip().rstrip("/")
+        if not value:
+            return value
+        if "://" in value:
+            return value
+        if value.startswith("localhost") or value.startswith("127.0.0.1"):
+            return f"http://{value}"
+        return f"https://{value}"
+
     @staticmethod
     def _normalize_cors_origin(origin: str) -> str:
         origin = origin.strip()
