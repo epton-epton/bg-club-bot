@@ -101,7 +101,8 @@ async function uploadFile(path: string, file: File): Promise<{ url: string }> {
 
   let response: Response;
   try {
-    response = await fetch(`${API_BASE}${path}`, {
+    // Upload через тот же origin (nginx proxy) — Telegram режет cross-origin multipart
+    response = await fetch(path, {
       method: "POST",
       headers,
       body: formData,

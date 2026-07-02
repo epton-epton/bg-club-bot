@@ -18,6 +18,9 @@ RUN npm run build
 
 FROM nginx:alpine
 
+ARG API_UPSTREAM=https://bgclub-api-production.up.railway.app
+ENV API_UPSTREAM=$API_UPSTREAM
+
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY proxy.conf /etc/nginx/conf.d/proxy.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
