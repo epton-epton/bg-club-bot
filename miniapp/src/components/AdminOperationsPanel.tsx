@@ -52,7 +52,7 @@ export function AdminOperationsPanel({
       id: userId,
       telegram_id: 0,
       username: null,
-      first_name: displayName,
+      first_name: displayName ?? null,
       last_name: null,
       display_name: displayName ?? `User #${userId}`,
       role: "guest",

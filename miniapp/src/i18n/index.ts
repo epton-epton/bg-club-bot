@@ -42,7 +42,8 @@ export function resolveLocale(
 }
 
 export function resolveTheme(saved: ThemeId | null | undefined): ThemeId {
-  if (saved === "ember") {
+  const raw = saved as string | null | undefined;
+  if (raw === "ember") {
     return "daylight";
   }
   if (saved && THEMES.includes(saved)) {
