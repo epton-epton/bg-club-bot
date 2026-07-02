@@ -7,9 +7,12 @@ RUN npm ci
 
 COPY . .
 
-# Прод: URL API (смените при другом домене Railway)
-ARG VITE_API_URL=https://bgclub-api-production.up.railway.app
+# Прод: пустой VITE_API_URL — запросы на тот же origin (nginx проксирует /api и /uploads)
+ARG VITE_API_URL=
 ENV VITE_API_URL=$VITE_API_URL
+
+ARG API_UPSTREAM=https://bgclub-api-production.up.railway.app
+ENV API_UPSTREAM=$API_UPSTREAM
 
 RUN npm run build
 

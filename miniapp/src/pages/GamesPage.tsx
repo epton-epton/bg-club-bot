@@ -10,7 +10,7 @@ import { useDebouncedValue } from "../hooks/useDebouncedValue";
 import { useMe } from "../hooks/useMe";
 import type { BggSearchItem, Game } from "../types/api";
 import { findBggCatalogMatch, isBggMetadataIncomplete } from "../utils/bggCatalog";
-import { resolveMediaUrl } from "../utils/coverImage";
+import { gameCoverSrc } from "../utils/coverImage";
 import { formatPlayers } from "../utils/format";
 
 export function GamesPage() {
@@ -457,6 +457,7 @@ function GameCard({
   const [duration, setDuration] = useState(game.duration_minutes?.toString() ?? "");
 
   const bggIncomplete = isBggMetadataIncomplete(game);
+  const coverSrc = gameCoverSrc(game);
 
   function handleSave(event: React.FormEvent) {
     event.preventDefault();
@@ -472,12 +473,8 @@ function GameCard({
 
   return (
     <li className={`card game-card game-card--rich${!game.is_active ? " game-card--inactive" : ""}`}>
-      {game.cover_url ? (
-        <img
-          className="game-card__thumb"
-          src={resolveMediaUrl(game.cover_url) ?? game.cover_url}
-          alt={game.title}
-        />
+      {coverSrc ? (
+        <img className="game-card__thumb" src={coverSrc} alt={game.title} />
       ) : (
         <div className="game-card__thumb game-card__thumb--placeholder">🎲</div>
       )}

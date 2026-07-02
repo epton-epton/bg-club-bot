@@ -2,7 +2,22 @@ import type { CSSProperties } from "react";
 
 const API_BASE = (import.meta.env.VITE_API_URL ?? "").replace(/\/$/, "");
 
-/** API returns paths like /api/v1/.../cover and /uploads/... — prefix with API host in prod. */
+function isApiMediaPath(url: string): boolean {
+  return url.startsWith("/api/") || url.startsWith("/uploads/");
+}
+
+/** Prefer direct CDN URLs; API paths stay same-origin (nginx proxy in prod, Vite in dev). */
+export function gameCoverSrc(game: {
+  image_url: string | null;
+  cover_url: string | null;
+}): string | null {
+  const image = game.image_url?.trim();
+  if (image && /^https?:\/\//i.test(image)) {
+    return image;
+  }
+  return resolveMediaUrl(game.cover_url);
+}
+
 export function resolveMediaUrl(url: string | null | undefined): string | null {
   if (!url?.trim()) {
     return null;
@@ -11,13 +26,14 @@ export function resolveMediaUrl(url: string | null | undefined): string | null {
   if (/^https?:\/\//i.test(trimmed)) {
     return trimmed;
   }
-  if (!trimmed.startsWith("/api/") && !trimmed.startsWith("/uploads/")) {
-    return trimmed;
+  if (isApiMediaPath(trimmed)) {
+    // Same-origin: miniapp nginx or Vite dev proxy
+    if (!API_BASE) {
+      return trimmed;
+    }
+    return `${API_BASE}${trimmed}`;
   }
-  if (!API_BASE) {
-    return trimmed;
-  }
-  return `${API_BASE}${trimmed}`;
+  return trimmed;
 }
 
 export function coverImageStyle(imageUrl: string): CSSProperties {
